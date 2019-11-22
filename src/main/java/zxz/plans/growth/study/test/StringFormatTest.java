@@ -154,7 +154,7 @@ public class StringFormatTest {
         System.out.printf("7的八进制表示：%o %n", 7);
         System.out.printf("13的八进制表示：%o %n", 13);
 
-        //%b表示布尔数（输出小写），%b则输出大写的布尔数值
+        //%b表示布尔数（输出小写），%B则输出大写的布尔数值
         //数值包括0，其布尔输出都是true
         System.out.printf("1的布尔表示：%b %n", 1);
         System.out.printf("3的布尔表示：%B %n", 3);

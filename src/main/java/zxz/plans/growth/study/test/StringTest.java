@@ -10,7 +10,33 @@ package zxz.plans.growth.study.test;
 public class StringTest {
 
     public static void main(String[] args) {
-        test3();
+        test6();
+
+    }
+
+    static void test6() {
+        String string = "string";
+        StringBuilder stringBuilder = new StringBuilder("string builder");
+        test4(string);
+        test5(stringBuilder);
+        System.out.println(string);
+        System.out.println(stringBuilder.toString());
+    }
+
+    static void test5(StringBuilder stringBuilder) {
+        stringBuilder.append("test5");
+    }
+
+    //不可变对象的安全性，调用string的任何方法都不会对string本身产生影响
+    static void test4(String string) {
+        string += " test4";
+        string.concat(" test4");
+        string.substring(2);
+        string.substring(2, 5);
+        string.replace('s', 't');
+        string.toUpperCase();
+        string.split("");
+//        System.out.println("test4: " + string);
     }
 
     static void test3() {
@@ -59,6 +85,8 @@ public class StringTest {
         System.out.println("abc" == "a" + "bc");
         String a = "a";
         System.out.println("abc" == a + "bc");
+        final String a1 = "a";
+        System.out.println("abc" == a1 + "bc");
         //intern方法，如果常量池有对应变量则返回，否则把该变量加入常量池并返回其引用
         System.out.println("abc" == (a + "bc").intern());
     }

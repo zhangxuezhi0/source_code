@@ -1,5 +1,6 @@
 package zxz.plans.growth.study.test;
 
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.LongAdder;
 
@@ -16,12 +17,19 @@ public class ThreadLocalTest {
 
         ThreadLocal<String> threadLocal = new ThreadLocal<>();
         threadLocal.set("zxz");
+        System.out.println(threadLocal.get());
+
+        ThreadLocal<String> threadLocal2 = new ThreadLocal<>();
+        threadLocal2.set("local 2");
+        System.out.println(threadLocal2.get());
 
         for (int i = 0; i < 3; i++) {
             new Thread(()->{
                 incInt();
             }).start();
         }
+        TimeUnit.MILLISECONDS.sleep(1500);
+        System.out.println("end");
 
     }
 
