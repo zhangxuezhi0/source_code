@@ -1,12 +1,10 @@
 package zxz.plans.growth.study.test;
 
-import first.zxz.tools.DateUtil;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.DateUtils;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
+import java.util.concurrent.*;
 
 /**
  * apache日期工具类测试
@@ -18,11 +16,36 @@ import java.util.Date;
 
 public class ApacheDateUtilTest {
 
-    public static void main(String[] args) {
-        test3();
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
+        test5();
     }
 
-    static void test3(){
+    private static void test5() {
+        Iterator<Calendar> iterator = DateUtils.iterator(new Date(), DateUtils.RANGE_MONTH_SUNDAY);
+        while(iterator.hasNext()){
+            Calendar next = iterator.next();
+            System.out.println(DateFormatUtils.format(next.getTime(), "yyyy-MM-dd HH:mm:ss"));
+        }
+    }
+
+    static void test4() throws ExecutionException, InterruptedException {
+        //线程安全
+        Callable task = () -> DateUtils.parseDate("2019-01-01 12:13:14", "yyyy-MM-dd HH:mm:ss");
+
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        List<Future> list = new ArrayList<>();
+        for (int i = 0; i < 200; i++) {
+            Future submit = executorService.submit(task);
+            list.add(submit);
+        }
+        executorService.shutdown();
+        for (Future future : list) {
+            System.out.println(future.get());
+        }
+    }
+
+
+    static void test3() {
         System.out.println(DateFormatUtils.format(new Date(), "yyyy-MM-dd, HH:mm:ss.SSS"));
         System.out.println(DateFormatUtils.format(new Date(), "yyyy-MM-dd, hh:mm:ss.SSS"));
         System.out.println(DateFormatUtils.format(new Date(), "yyyy-MM-dd, HH:mm:ss"));
